@@ -4,6 +4,11 @@ public class SimpleDoubleLL<T> extends DoubleLinkedList<T>{
     public SimpleDoubleLL(){
         super();
     }
+    public SimpleDoubleLL(T[] words){
+        for(T word : words){
+            this.addLast(word);
+        }
+    }
     public void add(T value, int position){
         if(position> super.getSize() || position<0){
             System.out.println("Error");
@@ -28,5 +33,11 @@ public class SimpleDoubleLL<T> extends DoubleLinkedList<T>{
         addingList.head.prev = super.tail;
         super.tail = addingList.tail;
         super.size+= addingList.size;
+    }
+    public void add(String value, String regex, int position){
+        String[] words = value.split(regex);
+        for(int i = 0; i< words.length; i++){
+            this.add((T)words[i], position+i);
+        }
     }
 }
