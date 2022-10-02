@@ -1,7 +1,7 @@
 package fkn.vsu.com;
 
 public class DoubleLinkedList<T> {
-    private static final class Element<T>{
+    public static final class Element<T>{
         Element<T> prev = null;
         Element<T> next = null;
         T data;
@@ -9,33 +9,32 @@ public class DoubleLinkedList<T> {
             this.data = data;
         }
     }
-    private int size=0;
-    private Element<T> head;
-    private Element<T> tail;
+    protected int size;
+    protected Element<T> head;
+    protected Element<T> tail;
 
+    public DoubleLinkedList() {
+        size = 0;
+        head = null;
+        tail = null;
+    }
 
     public void addFirst(T value){
         Element<T> element = new Element<>(value);
-        if(size==1) {tail.prev = element; element.next = tail;}
-        else if(size==0){tail = element;}
+        if(size==0) {tail = element;}
         else {head.prev = element; element.next = head;}
         head = element;
-        head.prev = null;
         size++;
     }
     public void addLast(T value){
         Element<T> element = new Element<>(value);
-        if(size==1){head.next = element; element.prev = head;}
-        else if(size==0){head = element;}
+        if(size==0){head = element;}
         else {tail.next = element; element.prev = tail;}
         tail = element;
-        tail.next = null;
         size++;
     }
-    public void addInMiddle(T value, int position){ //счет элементов с нуля, элемент вставляется после элемента под переданным номером
-        if(position>size-2){
-            System.out.println("Ошибка");
-        }
+    public final void addInMiddle(T value, int position){ //счет элементов с нуля, элемент вставляется после элемента под переданным номером
+        if(position>size-2){ System.out.println("Ошибка");}
         Element<T> element = new Element<>(value);
         Element<T> curr = head;
         for(int i = 0; i<=position-1; i++){
@@ -67,11 +66,11 @@ public class DoubleLinkedList<T> {
         if(size==1 || position>size-1 || position <0){
             System.out.println("Ошибка");
         }
-        else if(position==0){
+        if(position==0){
             head = curr.next;
             head.prev = null;
         }
-        else if(position==size-1){
+        if(position==size-1){
             tail = curr.prev;
             tail.next = null;
         }
